@@ -1,0 +1,77 @@
+.container {
+  max-width: 500px;
+  background-color: rgb(200, 214, 214);
+  margin: 0 auto;
+  padding: 40px;
+  font-family: Arial, sans-serif;
+  border-radius: 10px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  margin: 0 auto;
+  width: 17rem;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input,
+select {
+  padding: 8px;
+  margin: 8px;
+  font-size: 16px;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #2fd0f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 16rem;
+}
+
+.result {
+  padding: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 0 auto;
+  text-align: center;
+  width: 16rem;
+}
+
+.increase {
+  color: #2fd0f4;
+  padding: 10px;
+  border-radius: 10px;
+
+  background-color: rgb(255, 255, 255);
+}
+
+.none {
+  color: black;
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+}
