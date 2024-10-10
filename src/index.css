@@ -74,4 +74,23 @@ button {
   button {
     font-size: 14px;
   }
+  .form-group {
+    margin-bottom: 15px;
+    margin: 0 auto;
+    width: 12rem;
+    display: flex;
+    flex-direction: column;
+  }
+  button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #2fd0f4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 12rem;
+  }
 }
