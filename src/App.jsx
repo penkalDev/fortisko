@@ -55,11 +55,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <img
-        src={logoFortisko}
-        alt="logo"
-        style={{ width: "200px", height: "auto" }}
-      />
+      <img className="logo" src={logoFortisko} alt="logo" />
       <div className="form-group">
         <label>Initial Capital (PLN):</label>
         <input

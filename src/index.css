@@ -6,6 +6,10 @@
   font-family: Arial, sans-serif;
   border-radius: 10px;
 }
+.logo{
+  width: 200px;
+  height: auto
+}
 
 .form-group {
   margin-bottom: 15px;
@@ -70,12 +74,16 @@ button {
   .container {
     padding: 10px;
   }
+  .logo{
+    width: 100px;
+    height: auto
+  }
 
   button {
     font-size: 14px;
   }
   .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     margin: 0 auto;
     width: 12rem;
     display: flex;
