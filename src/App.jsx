@@ -9,6 +9,8 @@ const App = () => {
   const [leverage, setLeverage] = useState("1:10");
   const [currency, setCurrency] = useState("PLN");
   const [profit, setProfit] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(""); // Nowy stan dla komunikatu o błędzie
+
 
   // Kursy wymiany
   const exchangeRates = {
@@ -18,6 +20,8 @@ const App = () => {
   };
 
   const handleCalculate = () => {
+    setErrorMessage("");
+    setProfit(null); // Resetowanie komunikatu o błędzie
     if (!openingPrice || !closingPrice) return;
 
     const leverageValue = parseFloat(leverage.split(":")[1]);
@@ -32,6 +36,11 @@ const App = () => {
     const closingPriceValue = parseFloat(closingPrice);
     const shareValue = openingPriceValue / leverageValue;
     console.log(`Share Value (${currency}): ${shareValue}`);
+     // Sprawdzenie, czy kapitał jest wystarczający, aby kupić przynajmniej jedną jednostkę
+     if (capitalInCurrency < shareValue) {
+      setErrorMessage("Kapitał początkowy jest za mały, aby kupić przynajmniej jedną jednostkę.");
+      return;
+    }
 
     // Obliczenie liczby akcji w walucie, w której są ceny
     const numberOfShares = Math.floor(capitalInCurrency / shareValue); // Zaokrąglij do najbliższej liczby całkowitej
@@ -99,6 +108,7 @@ const App = () => {
       </div>
       <button onClick={handleCalculate}>Calculate</button>
       <h2>Result:</h2>
+      {errorMessage && <div className="error">{errorMessage}</div>}
       {profit !== null && (
         <div className="result">
           <p className="increase">
