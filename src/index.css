@@ -6,9 +6,9 @@
   font-family: Arial, sans-serif;
   border-radius: 10px;
 }
-.logo{
+.logo {
   width: 200px;
-  height: auto
+  height: auto;
 }
 
 .form-group {
@@ -26,7 +26,7 @@ label {
 
 input,
 select {
-  padding: 8px;
+  padding: 6px;
   margin: 8px;
   font-size: 16px;
   border: 1px solid #bbbbbb;
@@ -59,9 +59,8 @@ button {
 
 .increase {
   color: #2fd0f4;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
-
   background-color: rgb(255, 255, 255);
 }
 
@@ -74,9 +73,9 @@ button {
   .container {
     padding: 10px;
   }
-  .logo{
+  .logo {
     width: 100px;
-    height: auto
+    height: auto;
   }
 
   button {
@@ -100,5 +99,13 @@ button {
     border: none;
     border-radius: 4px;
     width: 12rem;
+  }
+  .increase {
+    color: #2fd0f4;
+    padding: 5px;
+    margin: 0 auto;
+    width: 12rem;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
   }
 }
