@@ -8,6 +8,7 @@ const App = () => {
   const [closingPrice, setClosingPrice] = useState("");
   const [leverage, setLeverage] = useState("1:10");
   const [currency, setCurrency] = useState("PLN");
+  const [calculatedCurrency, setCalculatedCurrency] = useState(""); // Waluta wynikowa
   const [profit, setProfit] = useState(null);
   const [errorMessage, setErrorMessage] = useState(""); // Nowy stan dla komunikatu o błędzie
 
@@ -53,6 +54,7 @@ const App = () => {
     // Obliczenie zysku w walucie
     const resultInCurrency = numberOfShares * priceDifference;
     console.log(`Profit in ${currency}: ${resultInCurrency}`);
+    setCalculatedCurrency(currency);
 
     // Przeliczenie wyniku na PLN
     // const resultPLN = resultInCurrency * exchangeRates[currency];
@@ -112,7 +114,7 @@ const App = () => {
       {profit !== null && (
         <div className="result">
           <p className="increase">
-            {profit.toFixed(2)} {currency}
+            {profit.toFixed(2)} {calculatedCurrency}
           </p>
         </div>
       )}
