@@ -65,7 +65,7 @@ button {
 }
 
 .error {
-  color: red; /* Kolor tekstu */
+  color: rgb(201, 20, 20); /* Kolor tekstu */
   font-size: 16px; /* Rozmiar czcionki */
   margin-top: 10px; /* Odstęp od góry */
   font-weight: bold; /* Pogrubienie tekstu */

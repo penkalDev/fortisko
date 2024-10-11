@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import logoFortisko from "./assets/logoFortisko.png";
 
@@ -10,15 +10,51 @@ const App = () => {
   const [currency, setCurrency] = useState("PLN");
   const [calculatedCurrency, setCalculatedCurrency] = useState(""); // Waluta wynikowa
   const [profit, setProfit] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(""); // Nowy stan dla komunikatu o błędzie
-
-
-  // Kursy wymiany
-  const exchangeRates = {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [exchangeRates, setExchangeRates] = useState({
     PLN: 1,
     EUR: 4.5,
     USD: 4.0,
-  };
+  });
+
+  // Funkcja do pobierania kursów walut z NBP
+  useEffect(() => {
+    const fetchExchangeRates = async () => {
+      try {
+        const res = await fetch(
+          "http://api.nbp.pl/api/exchangerates/tables/C?format=json"
+        );
+        const data = await res.json();
+
+        // Sprawdzenie, co zostało pobrane
+        console.log("Pobrane dane z API NBP:", data);
+
+        const rates = data[0].rates;
+        console.log("Lista kursów walut:", rates);
+
+        const newRates = {
+          PLN: 1,
+          EUR: rates.find((rate) => rate.code === "EUR").ask,
+          USD: rates.find((rate) => rate.code === "USD").ask,
+        };
+
+        console.log("Nowe kursy walut:", newRates);
+
+        setExchangeRates(newRates);
+      } catch (error) {
+        console.error("Error fetching exchange rates:", error);
+      }
+    };
+
+    fetchExchangeRates();
+  }, []); // Nowy stan dla komunikatu o błędzie
+
+  // Kursy wymiany
+  // const exchangeRates = {
+  //   PLN: 1,
+  //   EUR: 4.5,
+  //   USD: 4.0,
+  // };
 
   const handleCalculate = () => {
     setErrorMessage("");
@@ -27,9 +63,11 @@ const App = () => {
 
     const leverageValue = parseFloat(leverage.split(":")[1]);
     console.log(`Leverage Value: ${leverageValue}`);
+    console.log(exchangeRates);
 
     // Przeliczenie kapitału z PLN na walutę, w której są ceny
     const capitalInCurrency = capital / exchangeRates[currency];
+
     console.log(`Capital in ${currency}: ${capitalInCurrency}`);
 
     // Obliczenie wartości jednej akcji w walucie
@@ -37,9 +75,11 @@ const App = () => {
     const closingPriceValue = parseFloat(closingPrice);
     const shareValue = openingPriceValue / leverageValue;
     console.log(`Share Value (${currency}): ${shareValue}`);
-     // Sprawdzenie, czy kapitał jest wystarczający, aby kupić przynajmniej jedną jednostkę
-     if (capitalInCurrency < shareValue) {
-      setErrorMessage("Kapitał początkowy jest za mały, aby kupić przynajmniej jedną jednostkę.");
+    // Sprawdzenie, czy kapitał jest wystarczający, aby kupić przynajmniej jedną jednostkę
+    if (capitalInCurrency < shareValue) {
+      setErrorMessage(
+        "Kapitał początkowy zbyt niski, aby kupić przynajmniej jedną jednostkę."
+      );
       return;
     }
 
@@ -91,11 +131,15 @@ const App = () => {
           value={closingPrice}
           onChange={(e) => setClosingPrice(e.target.value)}
         />
-        <label>Currency</label>
+        <label>
+          Actual Currency
+          <br />
+          NBP
+        </label>
         <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
           <option value="PLN">PLN</option>
-          <option value="EUR">EUR</option>
-          <option value="USD">USD</option>
+          <option value="EUR">EUR ({exchangeRates.EUR?.toFixed(2)})</option>
+          <option value="USD">USD ({exchangeRates.USD?.toFixed(2)})</option>
         </select>
       </div>
       <div className="form-group">
