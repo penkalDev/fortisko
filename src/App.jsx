@@ -11,18 +11,14 @@ const App = () => {
   const [calculatedCurrency, setCalculatedCurrency] = useState(""); // Waluta wynikowa
   const [profit, setProfit] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
-  const [exchangeRates, setExchangeRates] = useState({
-    PLN: 1,
-    EUR: 4.5,
-    USD: 4.0,
-  });
+  const [exchangeRates, setExchangeRates] = useState("");
 
   // Funkcja do pobierania kursów walut z NBP
   useEffect(() => {
     const fetchExchangeRates = async () => {
       try {
         const res = await fetch(
-          "http://api.nbp.pl/api/exchangerates/tables/C?format=json"
+          "https://api.nbp.pl/api/exchangerates/tables/C?format=json"
         );
         const data = await res.json();
 
